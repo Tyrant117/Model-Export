@@ -96,24 +96,32 @@ public class TexturedModelGenerator {
             }
         }
 
-        float[][] uCords = model.getFaceTextureUCoordinates();
-        float[][] vCords = model.getFaceTextureVCoordinates();
+        float[] uvs = model.getFaceTextureUVCoordinates();
+//        float[][] uCords = model.getFaceTextureUCoordinates();
+//        float[][] vCords = model.getFaceTextureVCoordinates();
 
-        if(faces.length != uCords.length){
-//            plugin.Log("Face / UV Mismatch " + faces.length + " : " + uCords.length);
-            return;
+//        if(faces.length != uCords.length){
+////            plugin.Log("Face / UV Mismatch " + faces.length + " : " + uCords.length);
+//            return;
+//        }
+
+        for (int i = 0; i < faces.length; ++i) {
+            int idx = i * 6;
+            faces[i].SetUV1(uvs[idx], uvs[idx + 1]);
+            faces[i].SetUV2(uvs[idx + 2], uvs[idx + 3]);
+            faces[i].SetUV3(uvs[idx + 4], uvs[idx + 5]);
         }
 
-        for (int i = 0; i < uCords.length; ++i){
-            if(uCords[i] == null || vCords[i] == null)
-            {
-// This is where it needs to target color textures. (0-128,0-128)
-            }else{
-                // Need to add an offset.
-                faces[i].SetUV1(uCords[i][0],vCords[i][0]);
-                faces[i].SetUV2(uCords[i][1],vCords[i][1]);
-                faces[i].SetUV3(uCords[i][2],vCords[i][2]);
-            }
-        }
+//        for (int i = 0; i < uCords.length; ++i){
+//            if(uCords[i] == null || vCords[i] == null)
+//            {
+//// This is where it needs to target color textures. (0-128,0-128)
+//            }else{
+//                // Need to add an offset.
+//                faces[i].SetUV1(uCords[i][0],vCords[i][0]);
+//                faces[i].SetUV2(uCords[i][1],vCords[i][1]);
+//                faces[i].SetUV3(uCords[i][2],vCords[i][2]);
+//            }
+//        }
     }
 }

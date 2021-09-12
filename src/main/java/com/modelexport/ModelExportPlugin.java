@@ -1368,8 +1368,9 @@ public class ModelExportPlugin extends Plugin
 		final short[] faceTextures = model.getFaceTextures();
 		final byte[] facePriorities = model.getFaceRenderPriorities();
 
-		float[][] us = model.getFaceTextureUCoordinates();
-		float[][] vs = model.getFaceTextureVCoordinates();
+		float uvs[] = model.getFaceTextureUVCoordinates();
+//		float[][] us = model.getFaceTextureUCoordinates();
+//		float[][] vs = model.getFaceTextureVCoordinates();
 
 		double textureOffSet = 0.00390625;
 		double textureStep = 0.0078125;
@@ -1438,18 +1439,33 @@ public class ModelExportPlugin extends Plugin
 			}
 
 			if (faceTextures != null) {
-				if (us != null && us[face] != null && vs != null && vs[face] != null && textureID != -1) {
-					for (int j = 0; j < us[face].length; ++j) {
-						uvSB.append(String.format("fu %d %s %s\n",
-								textureID,
-								us[face][j],
-								vs[face][j]));
-					}
+				if(uvs != null && textureID != -1){
+					int idx = face * 6;
+					uvSB.append(String.format("fu %d %s %s\n",
+							textureID,
+							uvs[idx],
+							uvs[idx + 1]));
+					uvSB.append(String.format("fu %d %s %s\n",
+							textureID,
+							uvs[idx + 2],
+							uvs[idx + 3]));
+					uvSB.append(String.format("fu %d %s %s\n",
+							textureID,
+							uvs[idx + 4],
+							uvs[idx + 5]));
 				} else {
 					uvSB.append(String.format("uv 0.0 0.0\n"));
 					uvSB.append(String.format("uv 0.0 0.0\n"));
 					uvSB.append(String.format("uv 0.0 0.0\n"));
 				}
+//				if (us != null && us[face] != null && vs != null && vs[face] != null && textureID != -1) {
+//					for (int j = 0; j < us[face].length; ++j) {
+//						uvSB.append(String.format("fu %d %s %s\n",
+//								textureID,
+//								us[face][j],
+//								vs[face][j]));
+//					}
+
 			}
 
 			byte facePriority  = 0;
