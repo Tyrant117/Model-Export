@@ -1,7 +1,4 @@
-/*
- * Copyright (c) 2021, Bram91
- * All rights reserved.
- *
+/* Copyright (c) 2020 by micro
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
@@ -24,47 +21,15 @@
  */
 package com.modelexport;
 
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
-
-@ConfigGroup("modelexport")
-public interface ModelExportConfig extends Config {
-	@ConfigItem(
-			keyName = "material",
-			name = "Export Color",
-			description = "Also export colors for the models",
-			position = 1
-	)
-	default  boolean material(){
-		return  false;
-	}
-	@ConfigItem(
-			keyName = "forceRestPose",
-			name = "Force Rest Pose (Local Player)",
-			description = "Forces local player to perform an animation on export. The resulting model is in a rest pose.",
-			position = 2
-	)
-	default boolean forceRestPose() { return false; }
-
-	@ConfigItem(
-			position = 3,
-			keyName = "regionLines",
-			name = "Region Lines",
-			description = "Show region (64 x 64) lines"
-	)
-	default boolean regionLines()
-	{
-		return true;
-	}
-	@ConfigItem(
-			position = 4,
-			keyName = "chunkSize",
-			name = "Chunk Size",
-			description = "The size of the chunk to show."
-	)
-	default int chunkSize()
-	{
-		return 16;
-	}
+/**
+ * Groups based on different methods of obtaining pets.
+ */
+public enum PetGroup
+{
+    BOSS,
+    SKILLING,
+    TOY,
+    OTHER
 }
+
+
